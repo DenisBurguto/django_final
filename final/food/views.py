@@ -1,6 +1,6 @@
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegistrationForm, LoginForm, ReceiptForm, CategoryForm
+from .forms import RegistrationForm, LoginForm, ReceiptForm, CategoryForm, RecipeSearchForm
 from .models import Receipt
 import logging
 
@@ -65,14 +65,25 @@ def modify_receipt(request):
 
 
 def all_receipt(request):
-    return render(request, "food/all_receipt.html")
+    recipes = Receipt.objects.all()
+    return render(request, "food/all_receipt.html", {'recipes': recipes})
 
 
 def get_receipt(request):
-    return render(request, "food/get_receipt.html")
+    if request.method == 'GET':
+        form = RecipeSearchForm(request.GET)
+        if form.is_valid():
+            search_query = form.cleaned_data['search_query']
+            recipes = (Receipt.objects.filter(name__icontains=search_query) | Receipt.objects.filter(
+                description__icontains=search_query))
+            return render(request, 'food/recipe_search_results.html',
+                          {'recipes': recipes, 'search_query': search_query})
+    else:
+        form = RecipeSearchForm()
+    return render(request, "food/get_receipt.html", {'form': form})
 
 
-def receipt_detail(request):
+def receipt_detail(request, receipt_id):
     receipt = get_object_or_404(Receipt, pk=receipt_id)
     return render(request, 'food/receipt_detail.html', {'receipt': receipt})
 

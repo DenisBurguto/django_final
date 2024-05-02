@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}Add recipe{% endblock %}
+{% block title %}Create category{% endblock %}
 {% block content %}
-
 {% if user.is_authenticated %}
-<h1>Add new receipt</h1>
+<h1>Create new category</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Create recipe</button>
+    <button type="submit">Create category</button>
 </form>
 {% else %}
-Please login to add a new receipt
+Please login to create category
 <li><a href="{% url 'authorization' %}">Login/Register</a></li>
 {% endif %}
 {% endblock %}

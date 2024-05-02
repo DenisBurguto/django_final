@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Search for recipe{% endblock %}
+{% block content %}
+<h1>Search for recipes</h1>
+    <form method="GET">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+{% endblock %}

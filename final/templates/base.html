@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Online shop{% endblock %}</title>
+    <title>{% block title %}Best food WiKi{% endblock %}</title>
 </head>
 <body>
 <h1>Welcome to our WiKiFood! </h1>
@@ -15,11 +15,11 @@
     {% else %}
     <li><a href="{% url 'authorization' %}">Login/Register</a></li>
     {% endif %}
-    <li><a href="{% url 'get_receipt' %}">Search for receipt </a></li>
-    <li><a href="{% url 'all_receipt' %}">Get all food receipts</a></li>
+    <li><a href="{% url 'get_receipt' %}">Search for recipe </a></li>
+    <li><a href="{% url 'all_receipt' %}">Get all food recipes</a></li>
     <li><a href="{% url 'create_category' %}">Create new category</a></li>
-    <li><a href="{% url 'add_receipt' %}">Add food receipt</a></li>
-    <li><a href="{% url 'modify_receipt' %}">Modify food receipt</a></li>
+    <li><a href="{% url 'add_receipt' %}">Add food recipe</a></li>
+    <li><a href="{% url 'modify_receipt' %}">Modify food recipe</a></li>
 
 </ul>
 {% block content %}

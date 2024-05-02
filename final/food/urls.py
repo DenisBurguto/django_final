@@ -11,5 +11,6 @@ urlpatterns = [
     path('add_receipt/', views.add_receipt, name='add_receipt'),
     path('create_category/', views.create_category, name='create_category'),
     path('receipt_detail/', views.receipt_detail, name='receipt_detail'),
+    path('receipt_detail/<int:receipt_id>/', views.receipt_detail, name='receipt_detail'),
     path('modify_receipt/', views.modify_receipt, name='modify_receipt'),
 ]

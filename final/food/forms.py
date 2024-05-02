@@ -36,3 +36,7 @@ class CategoryForm(forms.ModelForm):
         if Category.objects.filter(name__iexact=name_lower).exists():
             raise forms.ValidationError("This category name already exists.")
         return name
+
+
+class RecipeSearchForm(forms.Form):
+    search_query = forms.CharField(label='Search', max_length=100)

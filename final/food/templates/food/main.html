@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Main{% endblock %}
 {% block content %}
-<h2>Recent Receipts:</h2>
+<h2>Recent recipes:</h2>
     <ul>
         {% for receipt in recent_receipts %}
             <li><a href="{% url 'receipt_detail' receipt.pk %}">{{ receipt.name }}</a> - {{ receipt.time }} minutes</li>
         {% endfor %}
     </ul>
 <img src="https://images.pexels.com/photos/2814828/pexels-photo-2814828.jpeg" alt="Various products" style="width: 600px">
-<p>This is the main page of our food library. Here your can study different receipts and share yours!</p>
+<p>This is the main page of our food library. Here your can study different recipes and share yours!</p>
 {% endblock %}
