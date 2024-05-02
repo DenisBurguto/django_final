@@ -11,5 +11,7 @@
     {% if receipt.photo %}
         <img src="{{ receipt.photo.url }}" alt="{{ receipt.name }}">
     {% endif %}
-    <a href="{% url 'modify_receipt' receipt_id=receipt.id %}">Edit</a>
+    <br>
+    <p>Know how to make better? <a href="{% url 'modify_receipt' receipt_id=receipt.id %}">Edit current recipe!</a></p>
+
 {% endblock %}
