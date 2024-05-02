@@ -17,28 +17,30 @@ def main(request):
 
 def authorization(request):
     if request.method == 'POST':
-        form = LoginForm(request, request.POST)
-        if form.is_valid():
-            user = form.get_user()
+        login_form = LoginForm(request, request.POST)
+        if login_form.is_valid():
+            user = login_form.get_user()
             login(request, user)
-            logger.info(f'New loging {user.username}')
+            logger.info(f'New login {user.username}')
             return redirect('main')
     else:
-        form = LoginForm()
-    return render(request, 'food/authorization.html', {'form': form})
+        login_form = LoginForm()
+
+    return render(request, 'food/authorization.html', {'login_form': login_form})
 
 
 def register(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
+        register_form = RegistrationForm(request.POST)
+        if register_form.is_valid():
+            user = register_form.save()
             login(request, user)
             logger.info('New registration')
             return redirect('main')
     else:
-        form = RegistrationForm()
-    return render(request, 'food/authorization.html', {'form': form})
+        register_form = RegistrationForm()
+
+    return render(request, 'food/register.html', {'register_form': register_form})
 
 
 def user_logout(request):
