@@ -6,6 +6,8 @@
     <p><strong>Description:</strong> {{ receipt.description }}</p>
     <p><strong>Steps:</strong> {{ receipt.steps }}</p>
     <p><strong>Time:</strong> {{ receipt.time }} minutes</p>
+    <p><strong>Author name:</strong> {{ receipt.author }}  </p>
+
     {% if receipt.photo %}
         <img src="{{ receipt.photo.url }}" alt="{{ receipt.name }}">
     {% endif %}
