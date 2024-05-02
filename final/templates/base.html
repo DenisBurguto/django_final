@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Online shop{% endblock %}</title>
-    </head>
-    <body>
-        <h1>Welcome to our WiKiFood! </h1>
-        <ul>
-            <li><a href="/">Main</a></li>
-            <li><a href="{% url 'authorization' %}">Login/Register</a></li>
-            <li><a href="{% url 'get_receipt' %}">Search for receipt </a></li>
-            <li><a href="{% url 'all_receipt' %}">Get all  food receipts</a></li>
-            <li><a href="{% url 'add_receipt' %}">Add food receipt</a></li>
-            <li><a href="{% url 'modify_receipt' %}">Modify food receipt</a></li>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Online shop{% endblock %}</title>
+</head>
+<body>
+<h1>Welcome to our WiKiFood! </h1>
+<ul>
+    <li><a href="/">Main</a></li>
+    {% if user.is_authenticated %}
+    <li>Welcome, {{ user.username }}! (<a href="{% url 'logout' %}">logout</a>)</li>
+    {% else %}
+    <li><a href="{% url 'authorization' %}">Login/Register</a></li>
+    {% endif %}
+    <li><a href="{% url 'get_receipt' %}">Search for receipt </a></li>
+    <li><a href="{% url 'all_receipt' %}">Get all food receipts</a></li>
+    <li><a href="{% url 'add_receipt' %}">Add food receipt</a></li>
+    <li><a href="{% url 'modify_receipt' %}">Modify food receipt</a></li>
 
-        </ul>
-        {% block content %}
-        {% endblock %}
-    </body>
-    </html>
+</ul>
+{% block content %}
+{% endblock %}
+</body>
+</html>
