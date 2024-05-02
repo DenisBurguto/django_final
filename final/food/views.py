@@ -1,7 +1,8 @@
 from django.contrib.auth import login, logout
-from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegistrationForm, LoginForm, ReceiptForm, CategoryForm, RecipeSearchForm
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Receipt
+
 import logging
 
 logger = logging.getLogger(__name__)
@@ -60,17 +61,13 @@ def add_receipt(request):
     return render(request, 'food/add_receipt.html', {'form': form})
 
 
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Receipt
-from .forms import ReceiptForm
-
-
 def modify_receipt(request, receipt_id):
     receipt = get_object_or_404(Receipt, pk=receipt_id)
     if request.method == 'POST':
         form = ReceiptForm(request.POST, request.FILES, instance=receipt)
         if form.is_valid():
             form.save()
+            logger.info('receipt updated successfully')
             return redirect('receipt_detail', receipt_id=receipt.id)
     else:
         form = ReceiptForm(instance=receipt)
