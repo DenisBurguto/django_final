@@ -1,22 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}Authorization{% endblock %}
 {% block content %}
- <h1>User Authentication</h1>
     {% if user.is_authenticated %}
         <p> Dear {{ user.username }}, you are already authorized! (<a href="{% url 'logout' %}">logout</a>)</p>
     {% else %}
         <h2>Login</h2>
         <form method="post" action="{% url 'authorization' %}">
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ login_form.as_p }}
             <button type="submit">Login</button>
         </form>
-        <h2>Register</h2>
-        <form method="post" action="{% url 'register' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Register</button>
-        </form>
+        <p>Not <a href="{% url 'register' %}">register</a> yet? </p>
     {% endif %}
-{% endblock %}
 
+{% endblock %}
