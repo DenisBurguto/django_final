@@ -1,6 +1,7 @@
 from django.contrib.auth import login, logout
-from django.shortcuts import render, redirect
-from .forms import RegistrationForm, LoginForm
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import RegistrationForm, LoginForm, ReceiptForm, CategoryForm
+from .models import Receipt
 import logging
 
 logger = logging.getLogger(__name__)
@@ -8,8 +9,9 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 def main(request):
+    recent_receipts = Receipt.objects.all()[:5]
     logger.info('Main page accessed')
-    return render(request, "food/main.html")
+    return render(request, "food/main.html", {'recent_receipts': recent_receipts})
 
 
 def authorization(request):
@@ -45,7 +47,17 @@ def user_logout(request):
 
 
 def add_receipt(request):
-    return render(request, "food/add_receipt.html")
+    if request.method == 'POST':
+        form = ReceiptForm(request.POST, request.FILES)
+        if form.is_valid():
+            receipt = form.save(commit=False)
+            receipt.author = request.user
+            receipt.save()
+            logger.info(f'Added receipt by {receipt.author}')
+            return redirect('main')
+    else:
+        form = ReceiptForm()
+    return render(request, 'food/add_receipt.html', {'form': form})
 
 
 def modify_receipt(request):
@@ -58,3 +70,21 @@ def all_receipt(request):
 
 def get_receipt(request):
     return render(request, "food/get_receipt.html")
+
+
+def receipt_detail(request):
+    receipt = get_object_or_404(Receipt, pk=receipt_id)
+    return render(request, 'food/receipt_detail.html', {'receipt': receipt})
+
+
+def create_category(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, request.FILES)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+            logger.info('new category created')
+            return redirect('main')
+    else:
+        form = CategoryForm()
+    return render(request, 'food/create_category.html', {'form': form})

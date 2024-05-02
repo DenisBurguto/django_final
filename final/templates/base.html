@@ -10,12 +10,14 @@
 <ul>
     <li><a href="/">Main</a></li>
     {% if user.is_authenticated %}
-    <li>Welcome, {{ user.username }}! (<a href="{% url 'logout' %}">logout</a>)</li>
+   <li>Welcome, {{ user.username|title }}! (<a href="{% url 'logout' %}">logout</a>)</li>
+
     {% else %}
     <li><a href="{% url 'authorization' %}">Login/Register</a></li>
     {% endif %}
     <li><a href="{% url 'get_receipt' %}">Search for receipt </a></li>
     <li><a href="{% url 'all_receipt' %}">Get all food receipts</a></li>
+    <li><a href="{% url 'create_category' %}">Create new category</a></li>
     <li><a href="{% url 'add_receipt' %}">Add food receipt</a></li>
     <li><a href="{% url 'modify_receipt' %}">Modify food receipt</a></li>
 

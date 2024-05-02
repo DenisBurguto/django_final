@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Add receipt{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<h1>Add new receipt</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create receipt</button>
+</form>
+{% else %}
+Please login to add a new receipt
+<li><a href="{% url 'authorization' %}">Login/Register</a></li>
+{% endif %}
+{% endblock %}
