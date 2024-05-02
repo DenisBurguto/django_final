@@ -15,8 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -24,12 +23,18 @@ CSRF_COOKIE_SECURE = True
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-ik=fa86i-$%@0h$nhz5o3f7nw7^j!u4nvj51ci(rngb19fx4aj'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
 SECRET_KEY = os.getenv('SECRET_KEY')
 
+# SECURITY WARNING: don't run with debug turned on in production!
+
+DEBUG = False
+
+SESSION_COOKIE_SECURE = False # to use temporary wuthout https
+CSRF_COOKIE_SECURE = False # to use temporary wuthout https
+
+
 ALLOWED_HOSTS = ['6545158.pythonanywhere.com',]
+INTERNAL_IPS = ['127.0.0.1', ]
 
 
 # Application definition
@@ -41,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'food'
+    'food',
 ]
 
 MIDDLEWARE = [
@@ -91,7 +96,7 @@ DATABASES = {
         },
     }
 }
-# 8vJ0Ip6zt7TsR9S
+
 
 
 # Password validation
@@ -134,6 +139,7 @@ STATIC_ROOT = BASE_DIR / 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -158,7 +164,7 @@ LOGGING = {
         },
         'file': {
             'class': 'logging.FileHandler',
-            'filename': './log/django.log',
+            'filename': '/home/6545158/django_final/final/log/django.log',
             'formatter': 'verbose',
         },
     },
