@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 class Category(models.Model):
@@ -14,7 +15,7 @@ class Receipt(models.Model):
     time = models.IntegerField
     photo = models.ImageField(upload_to='receipt_photos/', blank=True, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
-    author = models.CharField(max_length=100)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return not (f'Here is your receipt for {self.name} from {self.category}. '
