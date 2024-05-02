@@ -60,8 +60,21 @@ def add_receipt(request):
     return render(request, 'food/add_receipt.html', {'form': form})
 
 
-def modify_receipt(request):
-    return render(request, "food/modify_receipt.html")
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Receipt
+from .forms import ReceiptForm
+
+
+def modify_receipt(request, receipt_id):
+    receipt = get_object_or_404(Receipt, pk=receipt_id)
+    if request.method == 'POST':
+        form = ReceiptForm(request.POST, request.FILES, instance=receipt)
+        if form.is_valid():
+            form.save()
+            return redirect('receipt_detail', receipt_id=receipt.id)
+    else:
+        form = ReceiptForm(instance=receipt)
+    return render(request, "food/add_receipt.html", {'form': form})
 
 
 def all_receipt(request):
@@ -92,8 +105,7 @@ def create_category(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST, request.FILES)
         if form.is_valid():
-            category = form.save(commit=False)
-            category.save()
+            form.save()
             logger.info('new category created')
             return redirect('main')
     else:

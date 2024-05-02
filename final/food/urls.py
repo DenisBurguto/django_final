@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from . import views
 
@@ -12,5 +14,7 @@ urlpatterns = [
     path('create_category/', views.create_category, name='create_category'),
     path('receipt_detail/', views.receipt_detail, name='receipt_detail'),
     path('receipt_detail/<int:receipt_id>/', views.receipt_detail, name='receipt_detail'),
-    path('modify_receipt/', views.modify_receipt, name='modify_receipt'),
+    path('modify_receipt/<int:receipt_id>/', views.modify_receipt, name='modify_receipt'),
 ]
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
